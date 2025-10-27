@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt
 from config import ApplicationConfig
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from flask import request
 
 def create_app():
     from flask import Flask
@@ -12,7 +13,8 @@ def create_app():
     CORS(app, 
          origins=[
              "http://localhost:5173",  # Development
-             "https://your-production-domain.com"  # Add your production frontend URL
+             "https://your-production-domain.com",  # Add your production frontend URL
+             "https://bespokeprojectmanagerapp.vercel.app"
          ],
          allow_credentials=True,
          supports_credentials=True,
@@ -23,7 +25,7 @@ def create_app():
     def after_request(response):
         # Allow requests from both development and production domains
         origin = request.headers.get('Origin')
-        if origin in ["http://localhost:5173", "https://your-production-domain.com"]:
+        if origin in ["http://localhost:5173", "https://your-production-domain.com", "https://bespokeprojectmanagerapp.vercel.app"]:
             response.headers.add('Access-Control-Allow-Origin', origin)
             response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
             response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')

@@ -11,3 +11,4 @@ Werkzeug
 flask-sqlalchemy
 flask-migrate
 flask-bcrypt
+gunicorn

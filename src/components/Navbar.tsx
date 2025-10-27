@@ -132,7 +132,7 @@ const Navbar = (props: any) => {
                 <h1
                   className={`font-pacifico text-center tracking-wide text-white text-[25px]`}
                 >
-                  Quality Electric Services
+                  BESPOKE TECH FAMILY
                 </h1>
                 <h2
                   className={`font-roboto text-center text-gray-400 text-[15}px] tracking-widest`}
