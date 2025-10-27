@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=sqlite:///./instance/database.db
+      - JWT_SECRET_KEY=your-secret-key-here
+    volumes:
+      - ./backend/instance:/app/instance
+
+  frontend:
+    build: .
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
