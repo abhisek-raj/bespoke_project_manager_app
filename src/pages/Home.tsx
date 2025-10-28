@@ -88,14 +88,13 @@ const Home = (props: any) => {
                   <h3 className={styles.text}>Team</h3>
                 </div>
               </a>
-            ) : (
-              <a href="/clients">
-                <div className={styles.container}>
-                  <BsPersonFill size={iconSize} />
-                  <h3 className={styles.text}>Clients</h3>
-                </div>
-              </a>
-            )}
+            ) : null}
+            <a href="/clients">
+              <div className={styles.container}>
+                <BsPersonFill size={iconSize} />
+                <h3 className={styles.text}>Clients</h3>
+              </div>
+            </a>
             <div className={styles.container} onClick={logOut}>
               <BiLogOut size={iconSize} />
               <h3 className={styles.text}>Logout</h3>
