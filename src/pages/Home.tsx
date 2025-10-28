@@ -75,6 +75,12 @@ const Home = (props: any) => {
             {admin ? "Admin" : "User"}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
+            <a href="/schedule" className="md:col-span-2">
+              <div className={styles.container}>
+                <BsCalendarFill size={iconSize} />
+                <h3 className={styles.text}>Schedule</h3>
+              </div>
+            </a>
             {admin ? (
               <a href="/team">
                 <div className={styles.container}>
@@ -82,19 +88,14 @@ const Home = (props: any) => {
                   <h3 className={styles.text}>Team</h3>
                 </div>
               </a>
-            ) : null}
-            <a href="/schedule" className={!admin ? "md:col-span-2" : ""}>
-              <div className={styles.container}>
-                <BsCalendarFill size={iconSize} />
-                <h3 className={styles.text}>Schedule</h3>
-              </div>
-            </a>
-            <a href="/clients">
-              <div className={styles.container}>
-                <BsPersonFill size={iconSize} />
-                <h3 className={styles.text}>Clients</h3>
-              </div>
-            </a>
+            ) : (
+              <a href="/clients">
+                <div className={styles.container}>
+                  <BsPersonFill size={iconSize} />
+                  <h3 className={styles.text}>Clients</h3>
+                </div>
+              </a>
+            )}
             <div className={styles.container} onClick={logOut}>
               <BiLogOut size={iconSize} />
               <h3 className={styles.text}>Logout</h3>
