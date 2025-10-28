@@ -13,7 +13,7 @@ const Home = (props: any) => {
   function getData() {
     axios({
       method: "GET",
-      url: "${config.apiUrl}/profile",
+      url: `${config.apiUrl}/profile`,
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -37,7 +37,7 @@ const Home = (props: any) => {
   function logOut() {
     axios({
       method: "POST",
-      url: "${config.apiUrl}/logout",
+      url: `${config.apiUrl}/logout`,
     })
       .then((response) => {
         console.log(response.data);
