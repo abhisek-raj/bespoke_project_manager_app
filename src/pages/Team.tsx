@@ -5,6 +5,7 @@ import Employee from "../components/Employee";
 import Footer from "../components/Footer";
 
 const Team = (props: any) => {
+  const API = import.meta.env.VITE_API_URL as string;
   const [menu, setMenu] = useState<boolean>(false);
   const [first, setFirst] = useState<string>("");
   const [last, setLast] = useState<string>("");
@@ -21,7 +22,7 @@ const Team = (props: any) => {
   function getProfile() {
     axios({
       method: "GET",
-      url: "http://127.0.0.1:3000/profile",
+      url: `${API}/profile`,
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -46,7 +47,7 @@ const Team = (props: any) => {
   function getTeam() {
     axios({
       method: "GET",
-      url: "http://127.0.0.1:3000/employees",
+      url: `${API}/employees`,
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -67,7 +68,7 @@ const Team = (props: any) => {
     e.preventDefault();
     axios({
       method: "POST",
-      url: "http://localhost:3000/employees/create",
+      url: `${API}/employees/create`,
       headers: {
         Authorization: "Bearer " + props.token,
       },

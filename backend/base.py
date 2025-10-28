@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, timezone
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \
                                unset_jwt_cookies, jwt_required, JWTManager
 from models import db, Employees, Customers, Generators, ServiceRecords, Service_Employee_Int, Password_Recovery, Tasks, Projects
-import csv, secrets, string, random
+import csv, secrets, string, random, os
 from datetime import datetime
 
 
@@ -33,17 +33,23 @@ db.init_app(api)
 
 with api.app_context():
     db.create_all()
-    file_path = 'testFile.csv' # Actual File Path goes here
-    file = open(file_path)
-    reader = csv.reader(file)
-    header = next(reader)  # Pulls the first row of the csv file
+    file_path = 'testFile.csv'  # Optional seed file; skip if missing
+    if os.path.exists(file_path):
+        try:
+            file = open(file_path)
+            reader = csv.reader(file)
+            header = next(reader)  # Pulls the first row of the csv file
 
-    for row in reader:
-        if Generators.query.filter_by(Generatorid = row[1]).first() is None: # Loads every row into a big array full of arrays
-            new_generator = Generators(Generatorid = row[1], Name = row[0], Cost = row[2], Notes = row[3])
-            db.session.add(new_generator)
-            db.session.commit()
-    file.close()
+            for row in reader:
+                if Generators.query.filter_by(Generatorid=row[1]).first() is None:
+                    new_generator = Generators(Generatorid=row[1], Name=row[0], Cost=row[2], Notes=row[3])
+                    db.session.add(new_generator)
+                    db.session.commit()
+        finally:
+            try:
+                file.close()
+            except Exception:
+                pass
 
 api.config["JWT_SECRET_KEY"] = "aosdflnasldfnaslndflnsdnlnlknlkgtudsrtstr"
 jwt = JWTManager(api)

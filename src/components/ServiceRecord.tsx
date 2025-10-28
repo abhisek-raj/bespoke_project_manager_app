@@ -24,6 +24,7 @@ const ServiceRecord = ({
   techs: any;
   generators?: any;
 }) => {
+  const API = import.meta.env.VITE_API_URL as string;
   const time = new Date();
   const containerRef = useRef<any>(null);
   const [currentFEmpID, setCurrentFEmpID] = useState<any>("default");
@@ -52,7 +53,7 @@ const ServiceRecord = ({
     ) {
       axios({
         method: "POST",
-        url: "http://localhost:3000/schedule/delete",
+        url: `${API}/schedule/delete`,
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -78,7 +79,7 @@ const ServiceRecord = ({
       e.preventDefault();
       axios({
         method: "POST",
-        url: "http://localhost:3000/schedule/edit",
+        url: `${API}/schedule/edit`,
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -110,7 +111,7 @@ const ServiceRecord = ({
     {
       axios({
         method: "POST",
-        url: "http://localhost:3000/schedule/complete",
+        url: `${API}/schedule/complete`,
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -147,7 +148,7 @@ const ServiceRecord = ({
     e.preventDefault();
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/schedule/techs",
+      url: `${API}/schedule/techs`,
       headers: {
         Authorization: "Bearer " + token,
       },
