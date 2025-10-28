@@ -4,6 +4,7 @@ import { RiTeamFill } from "react-icons/ri";
 import { BiLogOut } from "react-icons/bi";
 import axios from "axios";
 import Footer from "../components/Footer";
+import { config } from "../config";
 
 const Home = (props: any) => {
   const [name, setName] = useState<String>();
@@ -12,7 +13,7 @@ const Home = (props: any) => {
   function getData() {
     axios({
       method: "GET",
-      url: "http://127.0.0.1:3000/profile",
+      url: "${config.apiUrl}/profile",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -36,7 +37,7 @@ const Home = (props: any) => {
   function logOut() {
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/logout",
+      url: "${config.apiUrl}/logout",
     })
       .then((response) => {
         console.log(response.data);

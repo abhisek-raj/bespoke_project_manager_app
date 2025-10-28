@@ -3,6 +3,7 @@ import { BiLogOut, BiMenu } from "react-icons/bi";
 import { CgChevronRight } from "react-icons/cg";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { config } from "../config";
 
 const Navbar = (props: any) => {
   const [name, setName] = useState<string>("");
@@ -14,7 +15,7 @@ const Navbar = (props: any) => {
   function getData() {
     axios({
       method: "GET",
-      url: "http://127.0.0.1:3000/profile",
+      url: `${config.apiUrl}/profile`,
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -37,7 +38,7 @@ const Navbar = (props: any) => {
   function logOut() {
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/logout",
+      url: `${config.apiUrl}/logout`,
     })
       .then((response) => {
         console.log(response.data);

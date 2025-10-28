@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { config } from "../config";
 import axios from "axios";
 import { FiEdit } from "react-icons/fi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -30,7 +31,7 @@ const Projects = (props: any) => {
   const fetchProjects = () => {
     axios({
       method: "GET",
-      url: "http://127.0.0.1:3000/projects/list",
+      url: "${config.apiUrl}/projects/list",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -50,7 +51,7 @@ const Projects = (props: any) => {
   const getUserRole = () => {
     axios({
       method: "GET",
-      url: "http://127.0.0.1:3000/profile",
+      url: "${config.apiUrl}/profile",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -198,3 +199,4 @@ const Projects = (props: any) => {
 };
 
 export default Projects;
+

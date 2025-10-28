@@ -2,6 +2,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import { FaCity } from "react-icons/fa";
 import { useState } from "react";
+import { config } from "../config";
 import axios from "axios";
 
 // formats phone number so (xxx) xxx-xxx format
@@ -38,7 +39,7 @@ const Customer = ({
     ) {
       axios({
         method: "POST",
-        url: "http://127.0.0.1:3000/customer/delete",
+        url: "${config.apiUrl}/customer/delete",
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -138,3 +139,4 @@ const Customer = ({
 };
 
 export default Customer;
+

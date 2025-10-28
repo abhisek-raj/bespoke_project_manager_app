@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { config } from "../config";
 import { toast, Toaster } from "react-hot-toast";
 import { CgSearch } from "react-icons/cg";
 import Footer from "../components/Footer";
@@ -34,7 +35,7 @@ const Clients = (props: any) => {
   function getCustomers() {
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/customer/display",
+      url: "${config.apiUrl}/customer/display",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -56,7 +57,7 @@ const Clients = (props: any) => {
     e.preventDefault();
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/customer/create",
+      url: "${config.apiUrl}/customer/create",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -252,3 +253,4 @@ const Clients = (props: any) => {
 };
 
 export default Clients;
+

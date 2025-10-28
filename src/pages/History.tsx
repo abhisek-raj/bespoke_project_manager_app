@@ -4,6 +4,7 @@ import { toast, Toaster } from "react-hot-toast";
 import Footer from "../components/Footer";
 import { formatNumber } from "../components/Customer";
 import { useEffect, useState } from "react";
+import { config } from "../config";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -39,7 +40,7 @@ const History = (props: any) => {
   const getGenerators = () => {
     axios({
       method: "GET",
-      url: "http://127.0.0.1:3000/generators/details",
+      url: "${config.apiUrl}/generators/details",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -56,7 +57,7 @@ const History = (props: any) => {
   const getData = (id: number) => {
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/customer/details",
+      url: "${config.apiUrl}/customer/details",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -82,7 +83,7 @@ const History = (props: any) => {
     ) {
       axios({
         method: "POST",
-        url: "http://127.0.0.1:3000/customer/delete",
+        url: "${config.apiUrl}/customer/delete",
         headers: {
           Authorization: "Bearer " + props.token,
         },
@@ -104,7 +105,7 @@ const History = (props: any) => {
     e.preventDefault();
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/service/create",
+      url: "${config.apiUrl}/service/create",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -137,7 +138,7 @@ const History = (props: any) => {
   const getWork = (id: number) => {
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/service/details",
+      url: "${config.apiUrl}/service/details",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -346,3 +347,4 @@ const History = (props: any) => {
 };
 
 export default History;
+

@@ -76,7 +76,7 @@ const ProjectManager = (props: any) => {
       // Load tasks
       const tasksResponse = await axios({
         method: "GET",
-        url: "http://127.0.0.1:3000/tasks/list",
+        url: "${config.apiUrl}/tasks/list",
         headers: {
           Authorization: "Bearer " + props.token,
         },
@@ -86,7 +86,7 @@ const ProjectManager = (props: any) => {
       // Load developers (filter employees with Role='developer')
       const employeesResponse = await axios({
         method: "GET",
-        url: "http://127.0.0.1:3000/employees",
+        url: "${config.apiUrl}/employees",
         headers: {
           Authorization: "Bearer " + props.token,
         },
@@ -138,7 +138,7 @@ const ProjectManager = (props: any) => {
     try {
       await axios({
         method: "POST",
-        url: "http://127.0.0.1:3000/tasks/create",
+        url: "${config.apiUrl}/tasks/create",
         headers: {
           Authorization: "Bearer " + props.token,
         },
@@ -166,7 +166,7 @@ const ProjectManager = (props: any) => {
     try {
       await axios({
         method: "POST",
-        url: "http://127.0.0.1:3000/tasks/update",
+        url: "${config.apiUrl}/tasks/update",
         headers: {
           Authorization: "Bearer " + props.token,
         },

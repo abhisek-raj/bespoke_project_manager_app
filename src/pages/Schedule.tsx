@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { config } from "../config";
 import axios from "axios";
 import Footer from "../components/Footer";
 import ServiceRecord from "../components/ServiceRecord";
@@ -26,7 +27,7 @@ const Schedule = (props: any) => {
     // console.log(value);
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/schedule/display",
+      url: "${config.apiUrl}/schedule/display",
       headers: {
         Authorization: "Bearer " + props.token,
       },
@@ -113,3 +114,4 @@ const Schedule = (props: any) => {
 };
 
 export default Schedule;
+
