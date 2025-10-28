@@ -7,6 +7,7 @@ import Logo from "../components/Logo";
 
 // SignIn function that will check the validity of the login information
 function Signin(props: any) {
+  const API = import.meta.env.VITE_API_URL as string;
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -25,7 +26,7 @@ function Signin(props: any) {
     e.preventDefault();
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/token",
+      url: `${API}/token`,
       data: {
         email: email,
         password: password,
@@ -43,7 +44,7 @@ function Signin(props: any) {
         try {
           const profile = await axios({
             method: "GET",
-            url: "http://127.0.0.1:3000/profile",
+            url: `${API}/profile`,
             headers: { Authorization: "Bearer " + token },
           });
           const role = profile.data.Role;
@@ -83,7 +84,7 @@ function Signin(props: any) {
     e.preventDefault();
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/recovery/check",
+      url: `${API}/recovery/check`,
       data: {
         email: email,
         code: code,
@@ -135,6 +136,9 @@ function Signin(props: any) {
                 <h2 className="text-white cap font-bold text-center text-xl tracking-wide">
                   Sign in to your account
                 </h2>
+                <p className="text-center mt-2 text-yellow-300 font-bold">
+                  Admin Email: admin@gmail.com • Password: admin123
+                </p>
                 {!forgot ? (
                   <form onSubmit={logMeIn}>
                     <label>Email</label>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { RiAdminLine, RiUserLine, RiLockPasswordLine } from "react-icons/ri";
 import toast from "react-hot-toast";
 import { formatNumber } from "./Customer";
@@ -16,10 +17,12 @@ const Employee = ({
   getTeam: any;
   token: string;
 }) => {
+  const API = import.meta.env.VITE_API_URL as string;
+  const [recoveryCode, setRecoveryCode] = useState<string | null>(null);
   const changePermission = (id: number) => {
     axios({
       method: "POST",
-      url: "http://localhost:3000/employees/permission",
+      url: `${API}/employees/permission`,
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -48,7 +51,7 @@ const Employee = ({
     ) {
       axios({
         method: "POST",
-        url: "http://localhost:3000/employees/delete",
+        url: `${API}/employees/delete`,
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -72,7 +75,7 @@ const Employee = ({
   const createCode = (id: number) => {
     axios({
       method: "POST",
-      url: "http://localhost:3000/recovery/create",
+      url: `${API}/recovery/create`,
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -102,7 +105,7 @@ const Employee = ({
   const showCode = (id: number) => {
     axios({
       method: "POST",
-      url: "http://localhost:3000/recovery/display",
+      url: `${API}/recovery/display`,
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -111,6 +114,7 @@ const Employee = ({
       },
     })
       .then((response) => {
+        setRecoveryCode(response.data.Code);
         toast.success("Recovery Code: " + response.data.Code, {
           duration: 5000, // toast will stay on the screen longer
         });
@@ -165,6 +169,12 @@ const Employee = ({
             </p>
             <p className="text-md py-0.5 tracking-wide text-gray-200">
               Email: <span className="ml-2">{item.email}</span>
+            </p>
+            <p className="text-md py-0.5 tracking-wide text-gray-200">
+              Password:
+              <span className="ml-2">
+                {recoveryCode ? recoveryCode : "Click lock to generate/reveal"}
+              </span>
             </p>
             <p className="text-md py-0.5 tracking-wide text-gray-200">
               Hired: <span className="ml-2">{item.hiredDate}</span>

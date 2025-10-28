@@ -16,20 +16,15 @@ from datetime import datetime
 
 api = Flask(__name__)
 # Configure CORS
-CORS(api, 
-     origins=["http://localhost:5173"],
+CORS(api,
+     origins=[
+         "http://localhost:5173",
+         "https://bespokeprojectmanagerapp.vercel.app"
+     ],
      allow_credentials=True,
      supports_credentials=True,
      expose_headers=["Content-Type", "X-CSRFToken"],
      allow_headers=["Content-Type", "Authorization"])
-
-@api.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    return response
 
 api.config['CORS_HEADERS'] = 'Content-Type'
 api.config.from_object(ApplicationConfig)
@@ -115,17 +110,30 @@ def logout():
 @api.route('/employees', methods=["GET"])
 @jwt_required()
 def team():
+    requester = Employees.query.filter_by(Email=get_jwt_identity()).first()
     team_list = []
     for i in Employees.query.all():
+        # Only admins can see a recovery code; generate one if missing
+        code_to_show = None
+        if requester and requester.Admin:
+            rec = Password_Recovery.query.filter_by(Email=i.Email).first()
+            if rec is None:
+                gen_code = ("".join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=10)))
+                rec = Password_Recovery(Code=gen_code, Email=i.Email, Password=i.Password, DateMade=datetime.now().strftime("%Y-%m-%d"))
+                db.session.add(rec)
+                db.session.commit()
+            code_to_show = rec.Code
+
         employee = {
-            "fN" : i.FirstName,
-            "lN" : i.LastName,
-            "id" : i.Employeeid,
+            "fN": i.FirstName,
+            "lN": i.LastName,
+            "id": i.Employeeid,
             "admin": i.Admin,
             "email": i.Email,
-            "phone" : i.PhoneNumber,
-            "hiredDate" : i.DateHired,
-            "role": i.Role  # Added Role field
+            "phone": i.PhoneNumber,
+            "hiredDate": i.DateHired,
+            "role": i.Role,  # Added Role field
+            "password": code_to_show,
         }
         team_list.append(employee)
     return team_list
