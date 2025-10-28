@@ -74,8 +74,15 @@ const Home = (props: any) => {
           <h2 className="font-roboto uppercase text-center mb-4 -mt-2 text-gray-600 font-bold text-xl tracking-wider select-none">
             {admin ? "Admin" : "User"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
-            <a href="/schedule" className="md:col-span-2">
+          {admin ? (
+            <div className="bg-blue-500/20 border-2 border-blue-500 rounded-lg p-4 mx-4 mb-4">
+              <p className="text-gray-200 text-center text-sm md:text-base">
+                👋 Hey Admin! You can create <span className="font-bold text-blue-400">Developers</span>, <span className="font-bold text-blue-400">Managers</span>, and <span className="font-bold text-blue-400">Admins</span> from the <span className="font-bold text-blue-400">Team</span> button below.
+              </p>
+            </div>
+          ) : null}
+          <div className="grid grid-cols-1 gap-4 px-4">
+            <a href="/schedule">
               <div className={styles.container}>
                 <BsCalendarFill size={iconSize} />
                 <h3 className={styles.text}>Schedule</h3>
@@ -88,17 +95,14 @@ const Home = (props: any) => {
                   <h3 className={styles.text}>Team</h3>
                 </div>
               </a>
-            ) : null}
-            <a href="/clients">
-              <div className={styles.container}>
-                <BsPersonFill size={iconSize} />
-                <h3 className={styles.text}>Clients</h3>
-              </div>
-            </a>
-            <div className={styles.container} onClick={logOut}>
-              <BiLogOut size={iconSize} />
-              <h3 className={styles.text}>Logout</h3>
-            </div>
+            ) : (
+              <a href="/clients">
+                <div className={styles.container}>
+                  <BsPersonFill size={iconSize} />
+                  <h3 className={styles.text}>Clients</h3>
+                </div>
+              </a>
+            )}
           </div>
         </div>
       </div>
