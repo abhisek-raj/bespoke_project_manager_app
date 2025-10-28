@@ -171,7 +171,7 @@ def check_code():
     recovery = Password_Recovery.query.filter_by(Email = email).first()
     if recovery.Code == code:
         emp = Employees.query.filter_by(Email = email).first()
-        emp.Password = bcrypt.generate_password_hash(new_password)
+        emp.Password = bcrypt.generate_password_hash(new_password).decode("utf-8")
         db.session.delete(recovery)
         db.session.commit()
         return {"msg": "New Password Created"}
@@ -223,7 +223,7 @@ def create_employee():
     if employee_exists:
         abort(409)
 
-    hashed_password = bcrypt.generate_password_hash(password1)
+    hashed_password = bcrypt.generate_password_hash(password1).decode("utf-8")
     new_employee = Employees(Employeeid = id1, Email = email1, Password = hashed_password, FirstName = firstname1, LastName = lastname1, PhoneNumber = phonenumber1, Admin = admin1, Role = role1, DateHired = dateHired)
     db.session.add(new_employee)
     db.session.commit()

@@ -1,13 +1,11 @@
-from flask_bcrypt import Bcrypt
 from models import db, Employees
-from base import api
+from base import api, bcrypt
 
 # Create admin user
 with api.app_context():
     # Check if admin exists
     if not Employees.query.filter_by(Email="admin@qualityelectric.com").first():
-        bcrypt = Bcrypt()
-        hashed_password = bcrypt.generate_password_hash("admin123")
+        hashed_password = bcrypt.generate_password_hash("admin123").decode("utf-8")
         admin = Employees(
             Employeeid=1001,
             Email="admin@qualityelectric.com",
@@ -29,8 +27,7 @@ with api.app_context():
 
     # Ensure admin@gmail.com also exists
     if not Employees.query.filter_by(Email="admin@gmail.com").first():
-        bcrypt = Bcrypt()
-        hashed_password = bcrypt.generate_password_hash("admin123")
+        hashed_password = bcrypt.generate_password_hash("admin123").decode("utf-8")
         admin2 = Employees(
             Employeeid=1002,
             Email="admin@gmail.com",
