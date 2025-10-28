@@ -93,21 +93,22 @@ const Navbar = (props: any) => {
         </div>
         <div className="px-2 my-auto">
           <ul className="hidden md:flex">
-              {getNavLinks().map((item, index) =>
-                item.roles.includes(role) ? (
-                  <a 
-                    href={item.path} 
-                    key={index} 
-                    className={`px-4 border-b-2 ${
-                      location.pathname === item.path
-                        ? "border-blue-500"
-                        : "border-transparent hover:border-blue-500"
-                    } ease-in-out duration-300 transition-all`}
-                  >
-                    {item.title}
-                  </a>
-                ) : null
-            )}
+            {getNavLinks().map((item, index) => {
+              const userRole = isAdmin ? "admin" : role;
+              return item.roles.includes(userRole) ? (
+                <a 
+                  href={item.path} 
+                  key={index} 
+                  className={`px-4 border-b-2 ${
+                    location.pathname === item.path
+                      ? "border-blue-500"
+                      : "border-transparent hover:border-blue-500"
+                  } ease-in-out duration-300 transition-all`}
+                >
+                  {item.title}
+                </a>
+              ) : null
+            })}
             <button className="text-gray-200 mr-2" onClick={logOut}>
               <BiLogOut size={22} />
             </button>
@@ -143,8 +144,9 @@ const Navbar = (props: any) => {
               </div>
               <div className="ml-4">
                 <ul className="mt-8">
-                    {getNavLinks().map((item, index) =>
-                      item.roles.includes(role) ? (
+                    {getNavLinks().map((item, index) => {
+                      const userRole = isAdmin ? "admin" : role;
+                      return item.roles.includes(userRole) ? (
                       <a href={item.path} key={index}>
                           <li className={`text-white py-6 flex justify-between tracking-wider ${
                             location.pathname === item.path ? "text-blue-500" : ""
@@ -155,7 +157,7 @@ const Navbar = (props: any) => {
                         <div className="bg-slate-700/70 w-full h-0.5 rounded-lg" />
                       </a>
                     ) : null
-                  )}
+                    })}
                 </ul>
               </div>
               <button
