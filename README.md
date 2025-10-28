@@ -1,148 +1,291 @@
-# Prerequisites
+# Project Manager App - Setup Guide
 
-### Install on your machine
+A full-stack project management application with React frontend and Flask backend.
 
-- Node js
-- Git
-- Yarn
-- Python
+## 🚀 Quick Start
 
-# Getting Started
+### Prerequisites
+- Python 3.8+
+- Node.js 16+
+- PostgreSQL (for production) or SQLite (for local dev)
 
-### You will need to open and run two terminal windows simultaneously, one to run the frontend, and one for the backend.
+---
 
-# Starting Backend
+## 📦 Backend Setup
 
-https://flask.palletsprojects.com/en/2.2.x/installation/#install-flask For Reference
-https://www.postman.com/downloads/ Not required but useful for testing the API
+### 1. Navigate to backend folder
+```bash
+cd backend
+```
 
-## For Mac
+### 2. Create virtual environment
+```bash
+python -m venv .venv
+```
 
-### In the terminal
+### 3. Activate virtual environment
+**Windows:**
+```bash
+.venv\Scripts\activate
+```
 
-- cd backend
-  - Where all flask files are stored
-- python3 -m venv venv
-  - Creates python virtual environment, if you already have a venv/env folder you can skip this command.
-- . venv/bin/activate
-  - Activates Python virtual environment
-- pip install -r requirements.txt
-  - Downloads all required dependencies, if you have already ran this command previously, you can skip this.
-- export FLASK_APP=app.py
-  - Tells Flask which app to run
-- export FLASK_ENV=development
-  - Enables auto-reload (optional)
-- flask run
-  - Starts Flask
+**Mac/Linux:**
+```bash
+source .venv/bin/activate
+```
 
-## For Windows
+### 4. Install dependencies
+```bash
+pip install -r requirements.txt
+```
 
-### In the terminal
+### 5. Set up environment variables (optional)
+Create a `.env` file in the backend folder:
+```env
+DATABASE_URL=sqlite:///instance/db.sqlite  # or your PostgreSQL URL
+SECRET_KEY=your-secret-key
+```
 
-- cd backend
-  - Where all flask files are stored
-- py -3 -m venv venv
-  - Creates python virtual environment, if you already have a venv/env folder you can skip this command.
-- venv\Scripts\activate
-  - Activates Python virtual environment
-- pip install -r requirements.txt
-  - Downloads all required dependencies, if you have already ran this command previously, you can skip this.
-- set FLASK_APP=app.py
-  - Tells Flask which app to run
-- set FLASK_ENV=development
-  - Enables auto-reload (optional)
-- flask run
-  - Starts Flask.
+### 6. Create admin user
+```bash
+python create_admin.py
+```
 
-# Starting Frontend
+This creates two admin accounts:
 
-## For Mac/Windows
+- **Email:** `admin@gmail.com` | **Password:** `admin123`
 
-### Make sure your terminal is in the main project directory
+### 7. Run the backend server
+```bash
+python app.py
+```
 
-- yarn
-  - Installs all frontend dependencies
-- yarn dev
-  - Starts the frontend.
-- App URL: http://localhost:5173 (Vite dev server)
-  - API calls are proxied to http://127.0.0.1:5000 as configured in `package.json`
-- If you get an error saying you are missing dependencies simply run "yarn" in the terminal.
+Backend will run on: `http://127.0.0.1:5000`
 
-# User Manual
+---
 
-[User Manual](./documents/UserManual.pdf)
+## 🎨 Frontend Setup
 
-This manual is specifically designed for the use of Quality Electric Service
-employees. It will help you maintain, organize, and keep detailed records. In
-this manual you’ll find screenshots, explanations, and instructions on how to
-properly use the system.
+### 1. Navigate to project root
+```bash
+cd ..
+```
 
-# Application Screenshots
+### 2. Install dependencies
+```bash
+npm install
+```
 
-## Admin Account / General Screenshots
+### 3. Set up environment variables
+Create `.env.development` file in the root:
+```env
+VITE_API_URL=http://127.0.0.1:5000
+```
 
-### Login
+### 4. Run the frontend
+```bash
+npm run dev
+```
 
-![Signin](./documents/screenshots/signin.png)
+Frontend will run on: `http://localhost:5173`
 
-### Password Reset
+---
 
-![Signin](./documents/screenshots/reset.png)
+## 🔐 Login Credentials
 
-### Home (Admin)
+### Default Admin Account
+- **Email:** `admin@gmail.com`
+- **Password:** `admin123`
 
-![Signin](./documents/screenshots/admin-home.png)
+### Admin Capabilities
+- Create/delete employees
+- Assign roles (Admin, Project Manager, Developer)
+- Create/manage projects
+- Create/assign tasks
+- View all data
 
-### Team / Accounts (Admin)
+---
 
-![Signin](./documents/screenshots/team.png)
+## 👥 Creating Users
 
-### Register (Admin)
+### Create a Project Manager
 
-![Signin](./documents/screenshots/team-add.png)
+1. **Login as Admin** (`admin@gmail.com` / `admin123`)
+2. Navigate to **Team** page
+3. Click **"Add Employee"**
+4. Fill in the form:
+   - Employee ID: `2001`
+   - First Name: `John`
+   - Last Name: `Manager`
+   - Email: `john.manager@company.com`
+   - Phone: `1234567890`
+   - Password: `manager123`
+   - **Role:** Select `project_manager`
+   - Admin: Leave unchecked (unless you want them to be admin too)
+5. Click **"Create Employee"**
 
-### Clients Page
+**Project Manager can:**
+- Create and manage projects
+- Create and assign tasks to developers
+- View their own projects and tasks
 
-![Signin](./documents/screenshots/clients.png)
+---
 
-### Clients List (Admin)
+### Create a Developer
 
-![Signin](./documents/screenshots/client-list.png)
+1. **Login as Admin** (`admin@gmail.com` / `admin123`)
+2. Navigate to **Team** page
+3. Click **"Add Employee"**
+4. Fill in the form:
+   - Employee ID: `3001`
+   - First Name: `Jane`
+   - Last Name: `Developer`
+   - Email: `jane.dev@company.com`
+   - Phone: `9876543210`
+   - Password: `dev123`
+   - **Role:** Select `developer`
+   - Admin: Leave unchecked
+5. Click **"Create Employee"**
 
-### Client Job History (Admin)
+**Developer can:**
+- View tasks assigned to them
+- Update task status
+- View project details
 
-![Signin](./documents/screenshots/client-history.png)
+---
 
-### Job Schedule (Admin)
+## 📋 User Roles & Permissions
 
-![Signin](./documents/screenshots/schedule-admin.png)
+| Role | Create Projects | Create Tasks | Assign Tasks | View All Data | Manage Users |
+|------|----------------|--------------|--------------|---------------|--------------|
+| **Admin** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Project Manager** | ✅ | ✅ | ✅ | Own projects only | ❌ |
+| **Developer** | ❌ | ❌ | ❌ | Assigned tasks only | ❌ |
+| **Employee** | ❌ | ❌ | ❌ | Limited | ❌ |
 
-### Schedule Search
+---
 
-![Signin](./documents/screenshots/schedule-search.png)
+## 🌐 Production Deployment
 
-### Schedule Edit
+### Backend (Render)
+1. Push code to GitHub
+2. Create new Web Service on Render
+3. Connect your repository
+4. Set environment variables:
+   - `DATABASE_URL`: Your PostgreSQL connection string
+   - `SECRET_KEY`: Random secret key
+5. Deploy
 
-![Signin](./documents/screenshots/schedule-edit.png)
+### Frontend (Vercel)
+1. Push code to GitHub
+2. Import project on Vercel
+3. Set environment variable:
+   - `VITE_API_URL`: Your Render backend URL (e.g., `https://your-app.onrender.com`)
+4. Deploy
 
-## User Account Screenshots
+### Reset Admin Password in Production
+If you need to reset admin passwords in production:
+```bash
+# Set your production database URL
+$env:DATABASE_URL = "postgresql://user:pass@host:port/db"
+python backend/reset_admin_password.py
+```
 
-### Home (User)
+---
 
-![Signin](./documents/screenshots/user/user-home.png)
+## 🛠️ Common Commands
 
-### Team / Accounts (Admin Only)
+### Backend
+```bash
+# Activate virtual environment
+.venv\Scripts\activate  # Windows
+source .venv/bin/activate  # Mac/Linux
 
-![Signin](./documents/screenshots/user/team-user.png)
+# Run server
+python app.py
 
-### Client Job History (User)
+# Create admin
+python create_admin.py
 
-![Signin](./documents/screenshots/user/clients-list.png)
+# Reset admin password (production)
+python reset_admin_password.py
+```
 
-### Client Job History (User)
+### Frontend
+```bash
+# Install dependencies
+npm install
 
-![Signin](./documents/screenshots/user/client-history-user.png)
+# Run development server
+npm run dev
 
-### Job Schedule (User)
+# Build for production
+npm run build
 
-![Signin](./documents/screenshots/user/schedule-user.png)
+# Preview production build
+npm run preview
+```
+
+---
+
+## 📁 Project Structure
+
+```
+project-manager-react-flask-main/
+├── backend/
+│   ├── app.py              # Flask app entry point
+│   ├── base.py             # Main Flask routes & logic
+│   ├── models.py           # Database models
+│   ├── config.py           # Configuration
+│   ├── create_admin.py     # Admin creation script
+│   ├── reset_admin_password.py  # Password reset script
+│   └── requirements.txt    # Python dependencies
+├── src/
+│   ├── pages/              # React pages
+│   ├── components/         # React components
+│   └── App.tsx             # Main React app
+├── .env.development        # Frontend dev environment
+├── .env.production         # Frontend prod environment
+└── package.json            # Node dependencies
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### "Invalid salt" error on login
+- Run `python backend/reset_admin_password.py` with your database URL
+
+### Frontend can't connect to backend
+- Check `VITE_API_URL` in `.env.development`
+- Ensure backend is running on the correct port
+
+### CORS errors
+- Backend already configured for `http://localhost:5173` and Vercel
+- Check `backend/base.py` CORS origins if using different domains
+
+### Database not found
+- Backend creates SQLite DB automatically in `instance/db.sqlite`
+- For PostgreSQL, ensure `DATABASE_URL` is set correctly
+
+---
+
+## 📞 Support
+
+For issues or questions, check the logs:
+- **Backend logs:** Terminal where `python app.py` is running
+- **Frontend logs:** Browser DevTools Console
+- **Network errors:** Browser DevTools Network tab
+
+---
+
+## 🎯 Next Steps
+
+1. ✅ Start backend server
+2. ✅ Start frontend server
+3. ✅ Login as admin
+4. ✅ Create a project manager
+5. ✅ Create a developer
+6. ✅ Create a project
+7. ✅ Create and assign tasks
+8. 🚀 Start managing projects!
