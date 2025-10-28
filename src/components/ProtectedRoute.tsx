@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import { config } from "../config";
 
 interface ProtectedRouteProps {
   token?: string | null;
@@ -21,7 +22,7 @@ const ProtectedRoute = ({ token, allowedRoles, children }: ProtectedRouteProps) 
       try {
         const response = await axios({
           method: "GET",
-          url: "http://127.0.0.1:3000/profile",
+          url: `${config.apiUrl}/profile`,
           headers: {
             Authorization: "Bearer " + token,
           },
