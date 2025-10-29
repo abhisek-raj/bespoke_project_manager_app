@@ -1,3 +1,7 @@
+NAME : ABHISEK RAJ
+CONTACT NO: 6203296773
+EMAIL : TIWARY.ABHISEK.RAJ@GMAIL.COM
+
 Brief about setup : - frontend is deployed on vercel , backend on render and database is postgresql deployed on render. You can install all requirements of frontend and backend and , start backend by navigate to "cd backend" folder and then run "python base.py". you can run frontend from root folder "npm run dev".
 LOGIN PAGE
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1cfb8f31-ff63-4834-b9fe-a9059164d9fe" />
